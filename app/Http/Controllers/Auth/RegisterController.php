@@ -50,9 +50,24 @@ class RegisterController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
-            'name' => ['required', 'string', 'max:255'],
+            'name' => ['required', 'string', 'alpha_num', 'min:3', 'max:16', 'unique:users'], // この行を変更
+            // alpha_num 英数字であるかのチェック
+            // unique:users userテーブルの他のレコードのnameカラムに、(ユーザー登録画面から)リクエストされた
+            // nameと同じ値がないことをチェック
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
+            // usersテーブルのマイグレーションファイル、passwordカラムにnullableを付けてnull許容
+            // これはGoogleアカウントを使用するユーザー登録ではパスワード登録を求めないため
+            // RegisterControlleクラスのバリデーションではpasswordのrequired(必須)はそのまｍ
+            // このバリデーションはGoogleアカウントを使用しない通常のユーザー登録時に使われるもの
+
+            // 'name' => ['required', 'string', 'max:255'],
+            // 必須, 文字列, 最大255文字まで
+            // 'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            // 必須, 文字列, メアド形式, 最大255文字まで, userテーブルの他のメールアドレスと被らないこと
+            // 'password' => ['required', 'string', 'min:8', 'confirmed'],
+            // 必須, 文字列, 最低8文字以上,
+            // 自分の項目名_confirmedという別の項目(つまり、password_confirmedという項目)と同じ値であること(confirmed) 
         ]);
     }
 
