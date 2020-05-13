@@ -1,21 +1,29 @@
 <nav class="navbar navbar-expand navbar-dark blue-gradient">
 
-  <a class="navbar-brand" href="/"><i class="far fa-sticky-note mr-1"></i>memo</a>
+  <a class="navbar-brand" href="/"><i class="far fa-sticky-note mr-1"></i>Memo</a>
 
   <ul class="navbar-nav ml-auto">
 
+    @guest {{--@guestから@endguestに囲まれた部分は、ユーザーがまだログインしていない状態の時のみ処理される--}}
     <li class="nav-item">
-      <a class="nav-link" href="">ユーザー登録</a>
+    <a class="nav-link" href="{{ route('register') }}">ユーザー登録</a>
+    {{--route関数を使って、ユーザー登録画面への遷移を可能にしている--}}
     </li>
+    @endguest
 
+    @guest
     <li class="nav-item">
       <a class="nav-link" href="">ログイン</a>
     </li>
+    @endguest
 
+    @auth {{--@authから@endauthに囲まれた部分は、ユーザーがログイン済みの状態の時のみ処理--}}
     <li class="nav-item">
       <a class="nav-link" href=""><i class="fas fa-pen mr-1"></i>投稿する</a>
     </li>
+    @endauth
 
+    @auth
     <!-- Dropdown -->
     <li class="nav-item dropdown">
       <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown"
@@ -31,11 +39,16 @@
         <button form="logout-button" class="dropdown-item" type="submit">
           ログアウト
         </button>
+        {{--ログアウトルーティング、ルートにはlogoutという名前(Name)が付いているのでroute関数を使える--}}
       </div>
     </li>
-    <form id="logout-button" method="POST" action="">
+    <form id="logout-button" method="POST" action="{{ route('logout') }}">
+    {{--HTTPメソッドはPOSTである必要があるので、aタグではなくbuttonタグとformタグを使う--}}
+
+      @csrf
     </form>
     <!-- Dropdown -->
+    @endauth
 
   </ul>
 
