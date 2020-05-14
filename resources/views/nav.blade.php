@@ -44,7 +44,6 @@
     </li>
     <form id="logout-button" method="POST" action="{{ route('logout') }}">
     {{--HTTPメソッドはPOSTである必要があるので、aタグではなくbuttonタグとformタグを使う--}}
-
       @csrf
     </form>
     <!-- Dropdown -->

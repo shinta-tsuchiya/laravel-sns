@@ -1,49 +1,51 @@
-@extends('app')
+<nav class="navbar navbar-expand navbar-dark blue-gradient">
 
-@section('title', 'ユーザー登録')
+  <a class="navbar-brand" href="/"><i class="far fa-sticky-note mr-1"></i>Memo</a>
 
-@section('content')
-  <div class="container">
-    <div class="row">
-      <div class="mx-auto col col-12 col-sm-11 col-md-9 col-lg-7 col-xl-6">
-        <h1 class="text-center"><a class="text-dark" href="/">memo</a></h1>
-        <div class="card mt-3">
-          <div class="card-body text-center">
-            <h2 class="h3 card-title text-center mt-2">ユーザー登録</h2>
+  <ul class="navbar-nav ml-auto">
 
-            <div class="card-text">
-              {{--ここから--}}
-              <form method="POST" action="{{ route('register') }}">
-                @csrf
-                <div class="md-form">
-                  <label for="name">ユーザー名</label>
-                  <input class="form-control" type="text" id="name" name="name" required value="{{ old('name') }}">
-                  <small>英数字3〜16文字(登録後の変更はできません)</small>
-                </div>
-                <div class="md-form">
-                  <label for="email">メールアドレス</label>
-                  <input class="form-control" type="text" id="email" name="email" required value="{{ old('email') }}" >
-                </div>
-                <div class="md-form">
-                  <label for="password">パスワード</label>
-                  <input class="form-control" type="password" id="password" name="password" required>
-                </div>
-                <div class="md-form">
-                  <label for="password_confirmation">パスワード(確認)</label>
-                  <input class="form-control" type="password" id="password_confirmation" name="password_confirmation" required>
-                </div>
-                <button class="btn btn-block blue-gradient mt-2 mb-2" type="submit">ユーザー登録</button>
-              </form>
-              {{--ここまで--}}
+    @guest
+    <li class="nav-item">
+    <a class="nav-link" href="{{ route('register') }}">ユーザー登録</a>
+    </li>
+    @endguest
 
-              <div class="mt-0">
-                <a href="{{ route('login') }}" class="card-text">ログインはこちら</a>
-              </div>
-              
-            </div>
-          </div>
-        </div>
+    @guest
+    <li class="nav-item">
+      <a class="nav-link" href="">ログイン</a>
+    </li>
+    @endguest
+
+    @auth
+    <li class="nav-item">
+      <a class="nav-link" href=""><i class="fas fa-pen mr-1"></i>投稿する</a>
+    </li>
+    @endauth
+
+    @auth
+    <!-- Dropdown -->
+    <li class="nav-item dropdown">
+      <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown"
+         aria-haspopup="true" aria-expanded="false">
+        <i class="fas fa-user-circle"></i>
+      </a>
+      <div class="dropdown-menu dropdown-menu-right dropdown-primary" aria-labelledby="navbarDropdownMenuLink">
+        <button class="dropdown-item" type="button"
+                onclick="location.href=''">
+          マイページ
+        </button>
+        <div class="dropdown-divider"></div>
+        <button form="logout-button" class="dropdown-item" type="submit">
+          ログアウト
+        </button>
       </div>
-    </div>
-  </div>
-@endsection
+    </li>
+    <form id="logout-button" method="POST" action="{{ route('logout') }}">
+      @csrf
+    </form>
+    <!-- Dropdown -->
+    @endauth
+
+  </ul>
+
+</nav>
