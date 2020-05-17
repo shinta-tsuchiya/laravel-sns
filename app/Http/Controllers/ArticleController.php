@@ -20,4 +20,11 @@ class ArticleController extends Controller
 
         return view('articles.index', ['articles' => $articles]); // viewメソッドの結果をアクセス元に返す
     }
+
+    //==========ここから追加========== 
+    public function create()
+    {
+        return view('articles.create');
+    }
+    //==========ここまで追加==========
 }

@@ -19,8 +19,7 @@
 
     @auth {{--@authから@endauthに囲まれた部分は、ユーザーがログイン済みの状態の時のみ処理--}}
     <li class="nav-item">
-      <a class="nav-link" href=""><i class="fas fa-pen mr-1"></i>投稿する</a>
-    </li>
+      <a class="nav-link" href="{{ route('articles.create') }}"><i class="fas fa-pen mr-1"></i>投稿する</a> {{--この行のhref属性を変更--}}    </li>
     @endauth
 
     @auth
