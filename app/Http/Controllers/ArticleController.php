@@ -10,6 +10,11 @@ use Illuminate\Http\Request;
 
 class ArticleController extends Controller
 {
+    public function __construct()
+    {
+        $this->authorizeResource(Article::class, 'article');
+    }
+    //==========ここまで追加==========
 
     public function index() // ArticleController@indexのindex部分がindexアクションメソッドに対応
     {
