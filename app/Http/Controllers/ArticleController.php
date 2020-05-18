@@ -39,4 +39,11 @@ class ArticleController extends Controller
         return redirect()->route('articles.index');
     }
     //==========ここまで追加==========
+
+    //==========ここから追加========== 
+    public function edit(Article $article)
+    {
+        return view('articles.edit', ['article' => $article]);    
+    }
+    //==========ここまで追加==========
 }
