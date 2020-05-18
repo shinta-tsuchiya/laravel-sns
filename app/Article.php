@@ -8,6 +8,13 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Article extends Model // Articleモデルは Modelクラスを継承している
 {
+    //==========ここから追加==========
+    protected $fillable = [
+        'title',
+        'body',
+    ];
+    //==========ここまで追加==========
+
     public function user(): BelongsTo
     // :BelongsTo メソッドの戻り値の型を宣言
     // PHP7では関数・メソッドの戻り値の型宣言が使える

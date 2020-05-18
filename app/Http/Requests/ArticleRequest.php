@@ -27,7 +27,7 @@ class ArticleRequest extends FormRequest
             //==========ここから追加==========
             'title' => 'required|max:50',
             'body' => 'required|max:500',
-            //==========ここまで追加==========            
+            //==========ここまで追加==========
         ];
     }
 
