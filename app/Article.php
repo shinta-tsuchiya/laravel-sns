@@ -45,4 +45,11 @@ class Article extends Model // Articleモデルは Modelクラスを継承して
             : false;
     }
     //===========ここまで追加===========
+
+    //===========ここから追加===========
+    public function getCountLikesAttribute(): int
+    {
+        return $this->likes->count();
+    }
+    //===========ここまで追加===========
 }

@@ -69,6 +69,7 @@
       {{--ここから追加--}}
       <article-like
         :initial-is-liked-by='@json($article->isLikedBy(Auth::user()))'
+        :initial-count-likes='@json($article->count_likes)' {{--この行を追加--}}
         >
       {{--ここまで追加--}}
     </article-like>
