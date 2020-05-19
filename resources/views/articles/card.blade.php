@@ -66,8 +66,12 @@
   {{--ここから追加--}}
   <div class="card-body pt-0 pb-2 pl-3">
     <div class="card-text">
-      <article-like>
-      </article-like>
+      {{--ここから追加--}}
+      <article-like
+        :initial-is-liked-by='@json($article->isLikedBy(Auth::user()))'
+        >
+      {{--ここまで追加--}}
+    </article-like>
     </div>
   </div>
   {{--ここまで追加--}}
