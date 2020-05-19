@@ -3,8 +3,10 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+//==========ここから追加==========
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+//==========ここまで追加==========
 
 class Article extends Model // Articleモデルは Modelクラスを継承している
 {
@@ -28,4 +30,19 @@ class Article extends Model // Articleモデルは Modelクラスを継承して
         // $this->プロパティ名 インスタンスが持つプロパティを参照する
         // リレーション
     }
+    //==========ここから追加==========
+    public function likes(): BelongsToMany
+    {
+        return $this->belongsToMany('App\User', 'likes')->withTimestamps();
+    }
+    //==========ここまで追加==========
+
+    //===========ここから追加===========
+    public function isLikedBy(?User $user): bool
+    {
+        return $user
+            ? (bool)$this->likes->where('id', $user->id)->count()
+            : false;
+    }
+    //===========ここまで追加===========
 }
