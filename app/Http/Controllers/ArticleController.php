@@ -3,9 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Article;
-//===========ここから追加==========
+use App\Tag;
 use App\Http\Requests\ArticleRequest;
-//===========ここまで追加==========
 use Illuminate\Http\Request;
 
 class ArticleController extends Controller
@@ -14,7 +13,6 @@ class ArticleController extends Controller
     {
         $this->authorizeResource(Article::class, 'article');
     }
-    //==========ここまで追加==========
 
     public function index() // ArticleController@indexのindex部分がindexアクションメソッドに対応
     {
@@ -28,54 +26,47 @@ class ArticleController extends Controller
         return view('articles.index', ['articles' => $articles]); // viewメソッドの結果をアクセス元に返す
     }
 
-    //==========ここから追加========== 
     public function create()
     {
         return view('articles.create');
     }
-    //==========ここまで追加==========
 
-    //==========ここから追加==========
     public function store(ArticleRequest $request, Article $article)
     {
         $article->fill($request->all()); //-- この行を追加
         $article->user_id = $request->user()->id;
         $article->save();
+
+        $request->tags->each(function ($tagName) use ($article) {
+            $tag = Tag::firstOrCreate(['name' => $tagName]);
+            $article->tags()->attach($tag);
+        });
+        
         return redirect()->route('articles.index');
     }
-    //==========ここまで追加==========
 
-    //==========ここから追加========== 
     public function edit(Article $article)
     {
         return view('articles.edit', ['article' => $article]);    
     }
-    //==========ここまで追加==========
 
-    //==========ここから追加==========
     public function update(ArticleRequest $request, Article $article)
     {
         $article->fill($request->all())->save();
         return redirect()->route('articles.index');
     }
-    //==========ここまで追加==========
 
-    //==========ここから追加==========
     public function destroy(Article $article)
     {
         $article->delete();
         return redirect()->route('articles.index');
     }
-    //==========ここまで追加==========
 
-    //-- ここから追加
     public function show(Article $article)
     {
         return view('articles.show', ['article' => $article]);
     }
-    //-- ここまで追加
 
-    //==========ここから追加==========
     public function like(Request $request, Article $article)
     {
         $article->likes()->detach($request->user()->id);
@@ -96,5 +87,4 @@ class ArticleController extends Controller
             'countLikes' => $article->count_likes,
         ];
     }
-    //==========ここまで追加==========
 }
