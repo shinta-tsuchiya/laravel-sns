@@ -52,4 +52,9 @@ class Article extends Model // Articleモデルは Modelクラスを継承して
         return $this->likes->count();
     }
     //===========ここまで追加===========
+
+    public function tags(): BelongsToMany
+    {
+        return $this->belongsToMany('App\Tag')->withTimestamps();
+    }
 }
