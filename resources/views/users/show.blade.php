@@ -14,6 +14,9 @@
           @if( Auth::id() !== $user->id )
             <follow-button
               class="ml-auto"
+              {{----------ここから追加----------}}
+              :initial-is-followed-by='@json($user->isFollowedBy(Auth::user()))'
+              {{----------ここまで追加----------}}
             >
             </follow-button>
           @endif
