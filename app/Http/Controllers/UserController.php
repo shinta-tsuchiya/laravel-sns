@@ -10,7 +10,9 @@ class UserController extends Controller
 {
     public function show(string $name)
     {
-        $user = User::where('name', $name)->first();
+        $user = User::where('name', $name)->first()
+
+        ->load(['articles.user', 'articles.likes', 'articles.tags']);
 
         $articles = $user->articles->sortByDesc('created_at');
 
@@ -24,7 +26,7 @@ class UserController extends Controller
     {
         $user = User::where('name', $name)->first()
 
-            ->load(['articles.user', 'articles.likes', 'articles.tags']);
+        ->load(['likes.user', 'likes.likes', 'likes.tags']);
 
         $articles = $user->likes->sortByDesc('created_at');
 
