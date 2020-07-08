@@ -168,7 +168,6 @@ return [
         /*
          * Package Service Providers...
          */
-        Barryvdh\Debugbar\ServiceProvider::class, //追記
 
         /*
          * Application Service Providers...
