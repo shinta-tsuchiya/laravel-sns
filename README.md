@@ -1,7 +1,8 @@
 ## Laravel-SNS-App
+リンク
 http://larasnsapp.herokuapp.com/
-
-techpit(https://www.techpit.jp/p/laravel-vue-sns)を元に作成しました。
+<br>
+techpit (https://www.techpit.jp/p/laravel-vue-sns) を元に作成しました。
 
 <br>
 
